@@ -11,7 +11,7 @@ struct HomeTabView: View {
     
     var body: some View {
         TabView {
-            Text("verkostung")
+            TastingListView()
                 .tabItem {
                     Label("Verkostungen", systemImage: "person.3")
                 }

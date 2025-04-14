@@ -34,5 +34,5 @@ struct EmptyStateView: View {
 }
 
 #Preview {
-    EmptyStateView(imageName: "empty-order", message: "Your order is empty")
+    EmptyStateView(imageName: "whisky-def", message: "Your order is empty")
 }
