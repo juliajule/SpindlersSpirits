@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EmptyState: View {
+struct EmptyStateView: View {
     
     let imageName: String
     let message: String
@@ -34,5 +34,5 @@ struct EmptyState: View {
 }
 
 #Preview {
-    EmptyState(imageName: "empty-order", message: "Your order is empty")
+    EmptyStateView(imageName: "empty-order", message: "Your order is empty")
 }
