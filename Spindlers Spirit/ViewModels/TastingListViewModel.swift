@@ -18,10 +18,14 @@ class TastingListViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         do {
-            tastings = try await APIService.shared.fetchTastings()
+            tastings = try await APIService.shared.fetchTastings().sorted { $0.date > $1.date }
+        } catch let apiError as APIError {
+            errorMessage = apiError.localizedDescription
+            print("Fehler beim Laden: \(apiError)")
         } catch {
-            errorMessage = "Daten konnten nicht geladen werden."
-            print("Fehler beim Laden: \(error)")
+            //errorMessage = error.localizedDescription
+            errorMessage = "Ein unerwarteter Fehler ist aufgetreten."
+            print("Unbekannter Fehler beim Laden: \(error)")
         }
         isLoading = false
     }

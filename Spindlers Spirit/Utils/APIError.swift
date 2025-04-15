@@ -12,20 +12,26 @@ enum APIError: Error, LocalizedError {
     case invalidResponse
     case decodingError
     case serverError(code: Int)
+    case noInternet
+    case timeout
     case unknown
-    
+
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "Ungültige URL"
+            return "Die Serveradresse ist ungültig."
         case .invalidResponse:
-            return "Ungültige Serverantwort"
+            return "Die Antwort vom Server war ungültig."
         case .decodingError:
-            return "Antwort konnte nicht verarbeitet werden"
+            return "Die Daten konnten nicht verarbeitet werden."
         case .serverError(let code):
-            return "Serverfehler mit Code \(code)"
+            return "Der Server hat mit Fehler \(code) geantwortet."
+        case .noInternet:
+            return "Keine Internetverbindung. Bitte überprüfe deine Verbindung."
+        case .timeout:
+            return "Die Anfrage hat zu lange gedauert. Bitte versuche es später erneut."
         case .unknown:
-            return "Unbekannter Fehler"
+            return "Ein unbekannter Fehler ist aufgetreten."
         }
     }
 }
