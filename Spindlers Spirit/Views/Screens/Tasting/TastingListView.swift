@@ -46,6 +46,7 @@ struct TastingListView: View {
                         .transition(.opacity)
                     }
                 }
+                .frame(maxHeight: .infinity)
             }
         }
     }

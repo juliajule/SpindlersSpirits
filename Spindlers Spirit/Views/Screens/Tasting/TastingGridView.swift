@@ -52,6 +52,7 @@ struct TastingGridView: View {
                         .transition(.opacity)
                     }
                 }
+                .frame(maxHeight: .infinity)
             }
         }
     }
