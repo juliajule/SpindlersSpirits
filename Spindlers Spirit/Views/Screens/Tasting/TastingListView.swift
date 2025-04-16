@@ -9,16 +9,15 @@ import SwiftUI
 
 struct TastingListView: View {
     
-    @StateObject private var viewModel = TastingListViewModel()
+    @ObservedObject var viewModel: TastingListViewModel
+    @EnvironmentObject var viewModeSettings: ViewModeSettings
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Header mit Umschaltbutton
                 HeaderView(title: "Verkostungen", iconName: "square.grid.2x2") {
                     withAnimation {
-                        viewModel.isGridView = true
-                    }
+                        viewModeSettings.viewMode = .grid                    }
                 }
                 .zIndex(1)
 
@@ -41,22 +40,18 @@ struct TastingListView: View {
                                             // Detailnavigation
                                         }
                                 }
-                                //.padding(.horizontal)
                             }
                             .padding(.top)
                         }
                         .transition(.opacity)
                     }
                 }
-                //.animation(.easeInOut, value: viewModel.tastings)
-            }
-            .task {
-                await viewModel.fetchTastings()
             }
         }
     }
 }
 
 #Preview {
-    TastingListView()
+    let viewModel = TastingListViewModel()
+    TastingListView(viewModel: viewModel)
 }

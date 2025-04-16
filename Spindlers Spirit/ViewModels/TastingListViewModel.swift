@@ -13,7 +13,6 @@ class TastingListViewModel: ObservableObject {
     @Published var tastings: [Tasting] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var isGridView: Bool = false
 
     func fetchTastings() async {
         isLoading = true

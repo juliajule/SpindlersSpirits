@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TastingGridView: View {
     
-    @StateObject private var viewModel = TastingListViewModel()
+    @ObservedObject var viewModel: TastingListViewModel
+    @EnvironmentObject var viewModeSettings: ViewModeSettings
 
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -19,11 +20,9 @@ struct TastingGridView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Header mit Umschaltbutton
                 HeaderView(title: "Verkostungen", iconName: "list.bullet") {
                     withAnimation {
-                        viewModel.isGridView = false
-                    }
+                        viewModeSettings.viewMode = .list                    }
                 }
                 .zIndex(1)
 
@@ -53,15 +52,12 @@ struct TastingGridView: View {
                         .transition(.opacity)
                     }
                 }
-                //.animation(.easeInOut, value: viewModel.tastings)
-            }
-            .task {
-                await viewModel.fetchTastings()
             }
         }
     }
 }
 
 #Preview {
-    TastingGridView()
+    let viewModel = TastingListViewModel()
+    TastingGridView(viewModel: viewModel)
 }

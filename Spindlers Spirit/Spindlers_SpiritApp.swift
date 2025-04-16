@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Spindlers_SpiritApp: App {
+    
+    @StateObject private var viewModeSettings = ViewModeSettings()
+
     var body: some Scene {
         WindowGroup {
             HomeTabView()
+                .environmentObject(viewModeSettings)
         }
     }
 }
