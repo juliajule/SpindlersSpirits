@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TastingGridView: View {
     
-    @ObservedObject var viewModel: TastingListViewModel
+    @ObservedObject var viewModel: TastingViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
 
     let columns = [
@@ -58,6 +58,6 @@ struct TastingGridView: View {
 }
 
 #Preview {
-    let viewModel = TastingListViewModel()
+    let viewModel = TastingViewModel()
     TastingGridView(viewModel: viewModel)
 }

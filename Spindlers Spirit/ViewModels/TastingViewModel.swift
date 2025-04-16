@@ -1,5 +1,5 @@
 //
-//  TastingListViewModel.swift
+//  TastingViewModel.swift
 //  Spindlers Spirit
 //
 //  Created by Julia Puhlmann on 13.04.25.
@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class TastingListViewModel: ObservableObject {
+class TastingViewModel: ObservableObject {
     
     @Published var tastings: [Tasting] = []
     @Published var isLoading = false

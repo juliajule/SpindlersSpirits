@@ -10,7 +10,7 @@ import SwiftUI
 struct TastingTabView: View {
 
     @EnvironmentObject var viewModeSettings: ViewModeSettings
-    @StateObject private var viewModel = TastingListViewModel()
+    @StateObject private var viewModel = TastingViewModel()
     
     var body: some View {
         Group {

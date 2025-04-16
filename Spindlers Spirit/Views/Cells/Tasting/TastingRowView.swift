@@ -43,7 +43,6 @@ struct TastingRowView: View {
                 Text(dateFormatter.string(from: tasting.date))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                //Text(AppConfig.baseURL + "/" + tasting.imageUrl)
             }
             Spacer()
         }

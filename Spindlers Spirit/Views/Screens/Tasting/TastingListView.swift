@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TastingListView: View {
     
-    @ObservedObject var viewModel: TastingListViewModel
+    @ObservedObject var viewModel: TastingViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
 
     var body: some View {
@@ -52,6 +52,6 @@ struct TastingListView: View {
 }
 
 #Preview {
-    let viewModel = TastingListViewModel()
+    let viewModel = TastingViewModel()
     TastingListView(viewModel: viewModel)
 }
