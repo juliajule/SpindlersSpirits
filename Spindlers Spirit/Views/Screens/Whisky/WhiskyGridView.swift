@@ -12,6 +12,7 @@ struct WhiskyGridView: View {
     let tasting: Tasting
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    @Environment(\.dismiss) private var dismiss
 
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -26,6 +27,22 @@ struct WhiskyGridView: View {
                         viewModeSettings.viewMode = .list
                     }
                 }
+                .overlay(
+                    HStack {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .padding(10)
+                                .background(Color(.systemBackground).opacity(0.8))
+                                .clipShape(Circle())
+                        }
+                        .padding(.leading)
+                        Spacer()
+                    }
+                )
                 .zIndex(1)
                 
                 VStack(spacing: 4) {
@@ -36,7 +53,7 @@ struct WhiskyGridView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 8)
-
+                
                 Group {
                     if viewModel.isLoading {
                         ProgressView("Lade Whiskys...")
@@ -51,7 +68,6 @@ struct WhiskyGridView: View {
                         
                         ScrollView {
                             VStack(spacing: 12) {
-                                // Bild
                                 AsyncImage(url: URL(string: "\(AppConfig.baseURL)/\(tasting.imageUrl)")) { phase in
                                     switch phase {
                                     case .empty:
@@ -79,13 +95,7 @@ struct WhiskyGridView: View {
                                 }
                                 .padding(.horizontal)
 
-                                // Tasting Infos
                                 VStack(spacing: 4) {
-                                    Text("Tasting: \(tasting.name)")
-                                        .font(.headline)
-                                    Text(tasting.date.formatted(date: .long, time: .omitted))
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
                                     if !tasting.description.isEmpty {
                                         Text(tasting.description)
                                             .font(.body)
@@ -96,7 +106,6 @@ struct WhiskyGridView: View {
                                 }
                                 .padding(.horizontal)
 
-                                // Grid
                                 if viewModel.isLoading {
                                     ProgressView("Lade Whiskys…")
                                         .frame(maxWidth: .infinity, minHeight: 200)

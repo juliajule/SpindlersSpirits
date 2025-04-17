@@ -12,16 +12,33 @@ struct WhiskyListView: View {
     let tasting: Tasting
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
-    
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 
-                HeaderView(title: "Whiskys", iconName: "square.grid.2x2") {
+                HeaderView(title: "Whiskys", iconName: "list.bullet") {
                     withAnimation {
-                        viewModeSettings.viewMode = .grid
+                        viewModeSettings.viewMode = .list
                     }
                 }
+                .overlay(
+                    HStack {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .padding(10)
+                                .background(Color(.systemBackground).opacity(0.8))
+                                .clipShape(Circle())
+                        }
+                        .padding(.leading)
+                        Spacer()
+                    }
+                )
                 .zIndex(1)
                 
                 VStack(spacing: 4) {
@@ -46,14 +63,66 @@ struct WhiskyListView: View {
                     } else {
                         ScrollView {
                             VStack(spacing: 12) {
-                                ForEach(viewModel.whiskys) { whisky in
-                                    WhiskyRowView(whisky: whisky)
-                                        .onTapGesture {
-                                            // Detailnavigation (geplant)
+                                AsyncImage(url: URL(string: "\(AppConfig.baseURL)/\(tasting.imageUrl)")) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                            .frame(maxWidth: .infinity, maxHeight: 200)
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(height: 200)
+                                            .frame(maxWidth: .infinity)
+                                            .clipped()
+                                            .cornerRadius(12)
+                                    case .failure:
+                                        Image("whisky-def")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(height: 200)
+                                            .frame(maxWidth: .infinity)
+                                            .clipped()
+                                            .cornerRadius(12)
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                                .padding(.horizontal)
+
+                                VStack(spacing: 4) {
+                                    if !tasting.description.isEmpty {
+                                        Text(tasting.description)
+                                            .font(.body)
+                                            .foregroundColor(.secondary)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.top, 4)
+                                    }
+                                }
+                                .padding(.horizontal)
+
+                                if viewModel.isLoading {
+                                    ProgressView("Lade Whiskys…")
+                                        .frame(maxWidth: .infinity, minHeight: 200)
+                                } else if let error = viewModel.errorMessage {
+                                    Text(error)
+                                        .foregroundColor(.red)
+                                        .padding()
+                                } else if viewModel.whiskys.isEmpty {
+                                    EmptyStateView(imageName: "whisky-def", message: "Keine Whiskys gefunden.")
+                                } else {
+                                    VStack(spacing: 12) {
+                                        ForEach(viewModel.whiskys) { whisky in
+                                            WhiskyRowView(whisky: whisky)
+                                                .onTapGesture {
+                                                    // Detailnavigation (geplant)
+                                                }
                                         }
+                                    }
+                                    .padding(.horizontal)
                                 }
                             }
-                            .padding(.top)
+                            .padding(.top, 12)
                         }
                         .transition(.opacity)
                     }
