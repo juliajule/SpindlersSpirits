@@ -15,7 +15,7 @@ struct HomeTabView: View {
                 .tabItem {
                     Label("Verkostungen", systemImage: "person.3")
                 }
-            Text("whisky")
+            AllWhiskyTabView()
                 .tabItem {
                     Label {
                         Text("Whisky")
@@ -37,5 +37,5 @@ struct HomeTabView: View {
 }
 
 #Preview {
-    HomeTabView()
+    HomeTabView().environmentObject(ViewModeSettings())
 }

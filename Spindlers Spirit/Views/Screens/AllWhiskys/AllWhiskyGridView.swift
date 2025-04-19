@@ -1,15 +1,14 @@
 //
-//  WhiskyGridView.swift
+//  AllWhiskyGridView.swift
 //  Spindlers Spirit
 //
-//  Created by Julia Puhlmann on 16.04.25.
+//  Created by Julia Puhlmann on 19.04.25.
 //
 
 import SwiftUI
 
-struct WhiskyGridView: View {
+struct AllWhiskyGridView: View {
     
-    let tasting: Tasting
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
     @Environment(\.dismiss) private var dismiss
@@ -45,15 +44,6 @@ struct WhiskyGridView: View {
                 )
                 .zIndex(1)
                 
-                VStack(spacing: 4) {
-                    Text("Tasting: \(tasting.name)")
-                        .font(.headline)
-                    Text(tasting.date.formatted(date: .long, time: .omitted))
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.vertical, 8)
-                
                 Group {
                     if viewModel.isLoading {
                         ProgressView("Lade Whiskys...")
@@ -67,41 +57,6 @@ struct WhiskyGridView: View {
                     } else {
                         ScrollView {
                             VStack(spacing: 12) {
-                                AsyncImage(url: URL(string: "\(AppConfig.baseURL)/\(tasting.imageUrl)")) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(maxWidth: .infinity, maxHeight: 200)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(height: 200)
-                                            .frame(maxWidth: .infinity)
-                                            .clipped()
-                                            .cornerRadius(12)
-                                    case .failure:
-                                        Image("whisky-def")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(height: 200)
-                                            .frame(maxWidth: .infinity)
-                                            .clipped()
-                                            .cornerRadius(12)
-                                    @unknown default:
-                                        EmptyView()
-                                    }
-                                }
-                                .padding(.horizontal)
-
-                                VStack(spacing: 4) {
-                                    Text(tasting.description ?? "Keine Beschreibung verfügbar.")
-                                        .font(.body)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.top, 4)
-                                }
-                                .padding(.horizontal)
-                                
                                 LazyVGrid(columns: columns, spacing: 16) {
                                     ForEach(viewModel.whiskys) { whisky in
                                         WhiskyCellView(whisky: whisky)
@@ -126,5 +81,5 @@ struct WhiskyGridView: View {
 
 #Preview {
     let viewModel = WhiskyViewModel()
-    WhiskyGridView(tasting: MockData.mockTastings[0], viewModel: viewModel)
+    AllWhiskyGridView(viewModel: viewModel)
 }

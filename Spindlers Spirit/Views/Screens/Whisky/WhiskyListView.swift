@@ -99,26 +99,15 @@ struct WhiskyListView: View {
                                 }
                                 .padding(.horizontal)
 
-                                if viewModel.isLoading {
-                                    ProgressView("Lade Whiskys…")
-                                        .frame(maxWidth: .infinity, minHeight: 200)
-                                } else if let error = viewModel.errorMessage {
-                                    Text(error)
-                                        .foregroundColor(.red)
-                                        .padding()
-                                } else if viewModel.whiskys.isEmpty {
-                                    EmptyStateView(imageName: "whisky-def", message: "Keine Whiskys gefunden.")
-                                } else {
-                                    VStack(spacing: 12) {
-                                        ForEach(viewModel.whiskys) { whisky in
-                                            WhiskyRowView(whisky: whisky)
-                                                .onTapGesture {
-                                                    // Detailnavigation (geplant)
-                                                }
-                                        }
+                                VStack(spacing: 12) {
+                                    ForEach(viewModel.whiskys) { whisky in
+                                        WhiskyRowView(whisky: whisky)
+                                            .onTapGesture {
+                                                // Detailnavigation (geplant)
+                                            }
                                     }
-                                    .padding(.horizontal)
                                 }
+                                .padding(.horizontal)
                             }
                             .padding(.top, 12)
                         }
@@ -128,6 +117,7 @@ struct WhiskyListView: View {
                 .frame(maxHeight: .infinity)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

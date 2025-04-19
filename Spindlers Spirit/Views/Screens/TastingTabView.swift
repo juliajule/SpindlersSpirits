@@ -21,14 +21,12 @@ struct TastingTabView: View {
                     if viewModeSettings.viewMode == .list {
                         TastingListView(viewModel: viewModel,
                                         onSelect: { tasting in
-                            print("Tapped: ")
                             selectedTasting = tasting
                             isLinkActive = true}
                         )
                     } else {
                         TastingGridView(viewModel: viewModel,
                                         onSelect: { tasting in
-                            print("Tapped: ")
                             selectedTasting = tasting
                             isLinkActive = true}
                         )
