@@ -11,17 +11,41 @@ struct TastingTabView: View {
 
     @EnvironmentObject var viewModeSettings: ViewModeSettings
     @StateObject private var viewModel = TastingViewModel()
+    @State private var selectedTasting: Tasting?
+    @State private var isLinkActive = false
     
     var body: some View {
-        Group {
-            if viewModeSettings.viewMode == .list {
-                TastingListView(viewModel: viewModel)
-            } else {
-                TastingGridView(viewModel: viewModel)
+        NavigationStack {
+            ZStack {
+                Group {
+                    if viewModeSettings.viewMode == .list {
+                        TastingListView(viewModel: viewModel,
+                                        onSelect: { tasting in
+                            print("Tapped: ")
+                            selectedTasting = tasting
+                            isLinkActive = true}
+                        )
+                    } else {
+                        TastingGridView(viewModel: viewModel,
+                                        onSelect: { tasting in
+                            print("Tapped: ")
+                            selectedTasting = tasting
+                            isLinkActive = true}
+                        )
+                    }
+                }
+                .navigationDestination(isPresented: $isLinkActive) {
+                    if let tasting = selectedTasting {
+                        WhiskyTabView(tasting: tasting)
+                    }
+                }
             }
-        }
-        .task {
-            await viewModel.fetchTastings()
+            .task {
+                await viewModel.fetchTastings()
+            }
+            .navigationDestination(for: Tasting.self) { tasting in
+                WhiskyTabView(tasting: tasting)
+            }
         }
     }
 }
