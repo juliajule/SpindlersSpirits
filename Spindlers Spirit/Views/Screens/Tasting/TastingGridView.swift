@@ -11,6 +11,7 @@ struct TastingGridView: View {
     
     @ObservedObject var viewModel: TastingViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    @State private var selectedTasting: Tasting?
 
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -42,7 +43,7 @@ struct TastingGridView: View {
                                 ForEach(viewModel.tastings) { tasting in
                                     TastingCellView(tasting: tasting)
                                         .onTapGesture {
-                                            // Detailnavigation
+                                            selectedTasting = tasting
                                         }
                                 }
                             }
@@ -53,6 +54,9 @@ struct TastingGridView: View {
                     }
                 }
                 .frame(maxHeight: .infinity)
+            }
+            .navigationDestination(item: $selectedTasting) { tasting in
+                WhiskyTabView(tasting: tasting)
             }
         }
     }

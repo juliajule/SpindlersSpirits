@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Whisky: Identifiable, Codable, Equatable {
+struct Whisky: Identifiable, Codable, Equatable, Hashable {
     let id: Int
     let name: String
     let distillery: String

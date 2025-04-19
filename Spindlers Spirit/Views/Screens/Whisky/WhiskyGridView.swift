@@ -27,22 +27,22 @@ struct WhiskyGridView: View {
                         viewModeSettings.viewMode = .list
                     }
                 }
-                .overlay(
-                    HStack {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .padding(10)
-                                .background(Color(.systemBackground).opacity(0.8))
-                                .clipShape(Circle())
-                        }
-                        .padding(.leading)
-                        Spacer()
-                    }
-                )
+//                .overlay(
+//                    HStack {
+//                        Button(action: {
+//                            dismiss()
+//                        }) {
+//                            Image(systemName: "chevron.left")
+//                                .font(.headline)
+//                                .foregroundColor(.primary)
+//                                .padding(10)
+//                                .background(Color(.systemBackground).opacity(0.8))
+//                                .clipShape(Circle())
+//                        }
+//                        .padding(.leading)
+//                        Spacer()
+//                    }
+//                )
                 .zIndex(1)
                 
                 VStack(spacing: 4) {
@@ -65,7 +65,6 @@ struct WhiskyGridView: View {
                     } else if viewModel.whiskys.isEmpty {
                         EmptyStateView(imageName: "whisky-def", message: "Keine Whiskys gefunden.")
                     } else {
-                        
                         ScrollView {
                             VStack(spacing: 12) {
                                 AsyncImage(url: URL(string: "\(AppConfig.baseURL)/\(tasting.imageUrl)")) { phase in
@@ -96,13 +95,11 @@ struct WhiskyGridView: View {
                                 .padding(.horizontal)
 
                                 VStack(spacing: 4) {
-                                    if !tasting.description.isEmpty {
-                                        Text(tasting.description)
-                                            .font(.body)
-                                            .foregroundColor(.secondary)
-                                            .multilineTextAlignment(.center)
-                                            .padding(.top, 4)
-                                    }
+                                    Text(tasting.description ?? "Keine Beschreibung verfügbar.")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.top, 4)
                                 }
                                 .padding(.horizontal)
 

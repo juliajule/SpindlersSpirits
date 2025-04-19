@@ -11,6 +11,7 @@ struct TastingListView: View {
     
     @ObservedObject var viewModel: TastingViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    @State private var selectedTasting: Tasting?
 
     var body: some View {
         NavigationStack {
@@ -37,7 +38,7 @@ struct TastingListView: View {
                                 ForEach(viewModel.tastings) { tasting in
                                     TastingRowView(tasting: tasting)
                                         .onTapGesture {
-                                            // Detailnavigation
+                                            selectedTasting = tasting
                                         }
                                 }
                             }
@@ -47,6 +48,9 @@ struct TastingListView: View {
                     }
                 }
                 .frame(maxHeight: .infinity)
+            }
+            .navigationDestination(item: $selectedTasting) { tasting in
+                WhiskyTabView(tasting: tasting)
             }
         }
     }

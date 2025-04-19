@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Tasting: Identifiable, Codable {
+struct Tasting: Identifiable, Codable, Hashable {
     let id: Int
     let name: String
     let date: Date
     let imageUrl: String
-    let description: String
+    let description: String?
     let whiskys: [Whisky]
 }
 

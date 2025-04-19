@@ -18,9 +18,9 @@ struct WhiskyListView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 
-                HeaderView(title: "Whiskys", iconName: "list.bullet") {
+                HeaderView(title: "Whiskys", iconName: "square.grid.2x2") {
                     withAnimation {
-                        viewModeSettings.viewMode = .list
+                        viewModeSettings.viewMode = .grid
                     }
                 }
                 .overlay(
@@ -91,13 +91,11 @@ struct WhiskyListView: View {
                                 .padding(.horizontal)
 
                                 VStack(spacing: 4) {
-                                    if !tasting.description.isEmpty {
-                                        Text(tasting.description)
-                                            .font(.body)
-                                            .foregroundColor(.secondary)
-                                            .multilineTextAlignment(.center)
-                                            .padding(.top, 4)
-                                    }
+                                    Text(tasting.description ?? "Keine Beschreibung verfügbar.")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.top, 4)
                                 }
                                 .padding(.horizontal)
 
