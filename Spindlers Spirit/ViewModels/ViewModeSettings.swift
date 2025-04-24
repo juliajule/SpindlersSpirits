@@ -14,5 +14,5 @@ class ViewModeSettings: ObservableObject {
         case grid
     }
     
-    @Published var viewMode: ViewMode = .list
+    @Published var viewMode: ViewMode = .grid
 }

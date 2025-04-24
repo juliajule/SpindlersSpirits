@@ -11,7 +11,6 @@ struct TastingListView: View {
     
     @ObservedObject var viewModel: TastingViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
-    //@State private var selectedTasting: Tasting?
     var onSelect: (Tasting) -> Void
 
     var body: some View {

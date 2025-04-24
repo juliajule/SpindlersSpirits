@@ -13,7 +13,7 @@ struct AllWhiskyTabView: View {
     @StateObject private var viewModel = WhiskyViewModel()
     
     var body: some View {
-        Group {
+        VStack(spacing: 0) {
             if viewModeSettings.viewMode == .list {
                 AllWhiskyListView(viewModel: viewModel)
             } else {
