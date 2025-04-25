@@ -14,6 +14,10 @@ struct Whisky: Identifiable, Codable, Equatable, Hashable {
     let age: Int
     let alcoholPercentage: Double
     let description: String
+    let liter: Double
+    let price: Double
+    let uvp: Double
+    let link: String
     let imageUrl: String
 }
 
@@ -26,6 +30,10 @@ struct MockWhiskyData {
             age: 12,
             alcoholPercentage: 46.0,
             description: "Smoky and rich",
+            liter:  0.75,
+            price:  12.99,
+            uvp: 10.0,
+            link: "https://www.google.com",
             imageUrl: "images/default_whisky.jpg"
         ),
         Whisky(
@@ -35,6 +43,10 @@ struct MockWhiskyData {
             age: 30,
             alcoholPercentage: 46.0,
             description: "Smoky and rich",
+            liter:  0.75,
+            price:  12.99,
+            uvp: 10.0,
+            link: "https://www.google.com",
             imageUrl: ""
         ),
         Whisky(
@@ -44,6 +56,10 @@ struct MockWhiskyData {
             age: 12,
             alcoholPercentage: 46.0,
             description: "Smoky and rich",
+            liter:  0.75,
+            price:  12.99,
+            uvp: 10.0,
+            link: "https://www.google.com",
             imageUrl: ""
         ),
         Whisky(
@@ -53,6 +69,10 @@ struct MockWhiskyData {
             age: 12,
             alcoholPercentage: 46.0,
             description: "Smoky and rich",
+            liter:  0.75,
+            price:  12.99,
+            uvp: 10.0,
+            link: "https://www.google.com",
             imageUrl: ""
         )
     ]
