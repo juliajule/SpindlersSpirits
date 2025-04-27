@@ -28,11 +28,7 @@ struct TastingRowView: View {
                     .opacity(0.5)
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .clipped()
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 80, height: 80)
-//                    .clipped()
-//                    .cornerRadius(8)
+                    .frame(maxWidth: 80, maxHeight: 80)
             } placeholder: {
                 Image("tastingQ")
                     .resizable()
@@ -41,12 +37,6 @@ struct TastingRowView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .clipped()
                     .frame(maxWidth: 80, maxHeight: 80)
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 80, height: 80)
-//                    .clipped()
-//                    .cornerRadius(8)
-//                    .opacity(0.5)
             }
             VStack(alignment: .leading, spacing: 6) {
                 Text(tasting.name)

@@ -16,41 +16,28 @@ struct WhiskyTabView: View {
     @State private var isWhiskyLinkActive = false
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if viewModeSettings.viewMode == .list {
-                    WhiskyListView(tasting: tasting, viewModel: viewModel, onSelect: { whisky in
-                        selectedWhisky = whisky
-                        isWhiskyLinkActive = true
-                    })
-                } else {
-                    WhiskyGridView(tasting: tasting, viewModel: viewModel, onSelect: { whisky in
-                        selectedWhisky = whisky
-                        isWhiskyLinkActive = true
-                    })
-                }
+        Group {
+            if viewModeSettings.viewMode == .list {
+                WhiskyListView(tasting: tasting, viewModel: viewModel, onSelect: { whisky in
+                    selectedWhisky = whisky
+                    isWhiskyLinkActive = true
+                })
+            } else {
+                WhiskyGridView(tasting: tasting, viewModel: viewModel, onSelect: { whisky in
+                    selectedWhisky = whisky
+                    isWhiskyLinkActive = true
+                })
             }
-            .navigationDestination(isPresented: $isWhiskyLinkActive) {
-                if let whisky = selectedWhisky {
-                    WhiskyDetailView(whisky: whisky)
-                }
+        }
+        .navigationDestination(isPresented: $isWhiskyLinkActive) {
+            if let whisky = selectedWhisky {
+                WhiskyDetailView(whisky: whisky)
             }
         }
         .task {
             await viewModel.fetchWhiskys(forTastingId: tasting.id)
         }
     }
-//        Group {
-//            if viewModeSettings.viewMode == .list {
-//                WhiskyListView(tasting: tasting, viewModel: viewModel)
-//            } else {
-//                WhiskyGridView(tasting: tasting, viewModel: viewModel)
-//            }
-//        }
-//        .task {
-//            await viewModel.fetchWhiskys(forTastingId: tasting.id)
-//        }
-//    }
 }
 
 #Preview {

@@ -27,7 +27,7 @@ struct WhiskyRowView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .clipped()
             }
-            .frame(width: 100, height: 100)
+            .frame(width: 80, height: 80)
             .clipped()
             .cornerRadius(8)
 

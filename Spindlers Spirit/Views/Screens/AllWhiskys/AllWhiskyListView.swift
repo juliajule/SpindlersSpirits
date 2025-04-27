@@ -39,7 +39,7 @@ struct AllWhiskyListView: View {
                             ForEach(viewModel.whiskys) { whisky in
                                 WhiskyRowView(whisky: whisky)
                                     .onTapGesture {
-                                        // Detailnavigation (geplant)
+                                        onSelect(whisky)
                                     }
                             }
                         }
