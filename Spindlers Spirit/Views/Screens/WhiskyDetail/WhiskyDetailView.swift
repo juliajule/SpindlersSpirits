@@ -54,7 +54,7 @@ struct WhiskyDetailView: View {
                                 .background(Color(.secondarySystemBackground))
                                 .padding(.horizontal)
                         case .failure:
-                            Image("whisky-def")
+                            Image("images")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity)

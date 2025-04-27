@@ -42,7 +42,6 @@ struct TastingGridView: View {
                             ForEach(viewModel.tastings) { tasting in
                                 TastingCellView(tasting: tasting)
                                     .onTapGesture {
-                                        print("Tapped: ")
                                         onSelect(tasting)
                                     }
                             }

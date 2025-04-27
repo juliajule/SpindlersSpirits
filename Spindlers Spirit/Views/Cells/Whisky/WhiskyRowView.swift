@@ -12,16 +12,20 @@ struct WhiskyRowView: View {
     let whisky: Whisky
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 16) {
             AsyncImage(url: URL(string: AppConfig.baseURL + "/" + whisky.imageUrl)) { image in
                 image
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .clipped()
             } placeholder: {
-                Image("whisky-def")
+                Image("images")
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                     .opacity(0.5)
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .clipped()
             }
             .frame(width: 100, height: 100)
             .clipped()
@@ -32,9 +36,8 @@ struct WhiskyRowView: View {
                     .font(.headline)
                     .lineLimit(2)
                     .minimumScaleFactor(0.8)
-                    .padding(.bottom)
             
-                HStack {
+                HStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Alter")
                             .font(.caption)
@@ -42,7 +45,9 @@ struct WhiskyRowView: View {
                         Text("\(whisky.age)")
                             .font(.subheadline)
                             .fontWeight(.medium)
+                            .foregroundColor(.secondary)
                     }
+                    
                     VStack(alignment: .leading, spacing: 2){
                         Text("Alkohol")
                             .font(.caption)
@@ -50,59 +55,21 @@ struct WhiskyRowView: View {
                         Text(String(format: "%.1f%%", whisky.alcoholPercentage))
                             .font(.subheadline)
                             .fontWeight(.medium)
+                            .foregroundColor(.secondary)
                     }
                 }
             }
-
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             Spacer()
         }
         .padding()
-        .frame(maxWidth: .infinity)
         .background(Color(uiColor: .systemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: Color("Shadows").opacity(0.15), radius: 6, x: 0, y: 4)
+        .padding(.horizontal)
+        .padding(.vertical, 4)
     }
-        
-//        HStack(spacing: 12) {
-//            AsyncImage(url: URL(string: AppConfig.baseURL + "/" + whisky.imageUrl)) {image in
-//                image
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 80, height: 80)
-//                    .clipped()
-//                    .cornerRadius(8)
-//            } placeholder: {
-//                Image("whisky-def")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 80, height: 80)
-//                    .clipped()
-//                    .cornerRadius(8)
-//                    .opacity(0.5)
-//            }
-//            
-//            VStack(alignment: .leading, spacing: 4) {
-//                Text(whisky.name)
-//                    .font(.headline)
-//                    .lineLimit(1)
-//                
-//                Text("Alter: \(whisky.age) Jahre")
-//                    .font(.subheadline)
-//                    .foregroundColor(.secondary)
-//                Text(String(format: "Alkohol: %.1f%%", whisky.alcoholPercentage))
-//                    .font(.subheadline)
-//                    .foregroundColor(.secondary)
-//            }
-//            
-//            Spacer()
-//        }
-//        .padding()
-//        .background(Color(uiColor: .systemBackground))
-//        .cornerRadius(12)
-//        .shadow(color: Color("Shadows").opacity(0.15), radius: 6, x: 0, y: 4)
-//        .padding(.horizontal)
-//        .padding(.vertical, 4)
-//    }
 }
 
 #Preview {

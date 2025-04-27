@@ -20,38 +20,45 @@ struct TastingCellView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            ZStack {
+            HStack {
                 AsyncImage(url: URL(string: AppConfig.baseURL + "/" + tasting.imageUrl)) { image in
                     image
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        .clipped()
                 } placeholder: {
                     Image("whisky-def")
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .opacity(0.5)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        .clipped()
                 }
             }
             .frame(height: 120)
+            .frame(maxWidth: .infinity)
             .clipped()
             .cornerRadius(10)
             
             Text(tasting.name)
-                .font(.headline)
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.headline)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
             Spacer()
+                        
             Text(dateFormatter.string(from: tasting.date))
                 .font(.subheadline)
-                .foregroundColor(.gray)
-
-            //Spacer()
+                .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+           
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .frame(height: 220)
+        .frame(height: 250)
         .background(Color(uiColor: .systemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .shadow(color: Color("Shadows").opacity(0.15), radius: 6, x: 0, y: 4)

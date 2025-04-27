@@ -75,19 +75,19 @@ struct WhiskyGridView: View {
                                     case .success(let image):
                                         image
                                             .resizable()
-                                            .scaledToFill()
-                                            .frame(height: 200)
+                                            .scaledToFit()
                                             .frame(maxWidth: .infinity)
-                                            .clipped()
                                             .cornerRadius(12)
+                                            .background(Color(.secondarySystemBackground))
+                                            .padding(.horizontal)
                                     case .failure:
-                                        Image("whisky-def")
+                                        Image("images")
                                             .resizable()
-                                            .scaledToFill()
-                                            .frame(height: 200)
+                                            .scaledToFit()
                                             .frame(maxWidth: .infinity)
-                                            .clipped()
                                             .cornerRadius(12)
+                                            .background(Color(.secondarySystemBackground))
+                                            .padding(.horizontal)
                                     @unknown default:
                                         EmptyView()
                                     }
