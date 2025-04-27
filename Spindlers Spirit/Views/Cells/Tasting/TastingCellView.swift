@@ -28,7 +28,7 @@ struct TastingCellView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                         .clipped()
                 } placeholder: {
-                    Image("whisky-def")
+                    Image("tastingQ")
                         .resizable()
                         .scaledToFit()
                         .opacity(0.5)

@@ -11,6 +11,7 @@ struct AllWhiskyGridView: View {
     
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    var onSelect: (Whisky) -> Void
 
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -43,7 +44,7 @@ struct AllWhiskyGridView: View {
                                 ForEach(viewModel.whiskys) { whisky in
                                     WhiskyCellView(whisky: whisky)
                                         .onTapGesture {
-                                            // Detailnavigation (geplant)
+                                            onSelect(whisky)
                                         }
                                 }
                             }
@@ -61,5 +62,6 @@ struct AllWhiskyGridView: View {
 
 #Preview {
     let viewModel = WhiskyViewModel()
-    AllWhiskyGridView(viewModel: viewModel)
+    let onSelect: (Whisky) -> Void = { _ in }
+    AllWhiskyGridView(viewModel: viewModel, onSelect: onSelect)
 }

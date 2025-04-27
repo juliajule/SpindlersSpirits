@@ -11,13 +11,28 @@ struct AllWhiskyTabView: View {
     
     @EnvironmentObject var viewModeSettings: ViewModeSettings
     @StateObject private var viewModel = WhiskyViewModel()
+    @State private var selectedWhisky: Whisky?
+    @State private var isWhiskyLinkActive = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            if viewModeSettings.viewMode == .list {
-                AllWhiskyListView(viewModel: viewModel)
-            } else {
-                AllWhiskyGridView(viewModel: viewModel)
+        NavigationStack {
+            Group {
+                if viewModeSettings.viewMode == .list {
+                    AllWhiskyListView(viewModel: viewModel, onSelect: { whisky in
+                        selectedWhisky = whisky
+                        isWhiskyLinkActive = true
+                    })
+                } else {
+                    AllWhiskyGridView(viewModel: viewModel, onSelect: { whisky in
+                        selectedWhisky = whisky
+                        isWhiskyLinkActive = true
+                    })
+                }
+            }
+            .navigationDestination(isPresented: $isWhiskyLinkActive) {
+                if let whisky = selectedWhisky {
+                    WhiskyDetailView(whisky: whisky)
+                }
             }
         }
         .task {

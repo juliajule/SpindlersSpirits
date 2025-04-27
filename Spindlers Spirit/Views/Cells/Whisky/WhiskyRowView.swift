@@ -20,7 +20,7 @@ struct WhiskyRowView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .clipped()
             } placeholder: {
-                Image("images")
+                Image("Whiskyq")
                     .resizable()
                     .scaledToFit()
                     .opacity(0.5)

@@ -21,7 +21,7 @@ struct WhiskyCellView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                         .clipped()
                 } placeholder: {
-                    Image("whisky-def")
+                    Image("Whiskyq")
                         .resizable()
                         .scaledToFit()
                         .opacity(0.5)

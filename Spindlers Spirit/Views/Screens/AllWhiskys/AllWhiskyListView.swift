@@ -11,6 +11,7 @@ struct AllWhiskyListView: View {
     
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    var onSelect: (Whisky) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -55,5 +56,6 @@ struct AllWhiskyListView: View {
 
 #Preview {
     let viewModel = WhiskyViewModel()
-    AllWhiskyListView(viewModel: viewModel)
+    let onSelect: (Whisky) -> Void = { _ in }
+    AllWhiskyListView(viewModel: viewModel, onSelect: onSelect)
 }

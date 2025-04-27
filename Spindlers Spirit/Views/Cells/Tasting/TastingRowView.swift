@@ -34,7 +34,7 @@ struct TastingRowView: View {
 //                    .clipped()
 //                    .cornerRadius(8)
             } placeholder: {
-                Image("images")
+                Image("tastingQ")
                     .resizable()
                     .scaledToFit()
                     .opacity(0.5)

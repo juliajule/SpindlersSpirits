@@ -37,8 +37,6 @@ struct TastingListView: View {
                             ForEach(viewModel.tastings) { tasting in
                                 TastingRowView(tasting: tasting)
                                     .onTapGesture {
-                                        print("Tapped: ")
-
                                         onSelect(tasting)
                                     }
                             }
