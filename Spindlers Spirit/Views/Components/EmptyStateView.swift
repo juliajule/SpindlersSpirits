@@ -21,6 +21,7 @@ struct EmptyStateView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 150)
+                    .cornerRadius(12)
                 Text(message)
                     .font(.title3)
                     .fontWeight(.semibold)

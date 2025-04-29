@@ -24,13 +24,14 @@ struct HomeTabView: View {
                             .renderingMode(.template)
                     }
                 }
+            SearchTabView()
+                .tabItem {
+                    Label("Suche", systemImage: "magnifyingglass")
+                }
+            
             Text("fav")
                 .tabItem {
                     Label("Favoriten", systemImage: "heart")
-                }
-            Text("search")
-                .tabItem {
-                    Label("Suche", systemImage: "magnifyingglass")
                 }
         }
     }
