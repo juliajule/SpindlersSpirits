@@ -175,4 +175,42 @@ class APIService {
             throw APIError.decodingError
         }
     }
+    
+    func searchWhiskys(request: WhiskySearchRequest) async throws -> [Whisky] {
+        guard let url = URL(string: "\(AppConfig.baseURL)/whiskys/search") else {
+            throw APIError.invalidURL
+        }
+
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue(AppConfig.appVersion, forHTTPHeaderField: "X-App-Version")
+
+        let encoder = JSONEncoder()
+        let jsonData = try encoder.encode(request)
+        urlRequest.httpBody = jsonData
+
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw APIError.serverError(code: (response as? HTTPURLResponse)?.statusCode ?? -1)
+        }
+
+        do {
+            return try JSONDecoder().decode([Whisky].self, from: data)
+        } catch let urlError as URLError {
+            switch urlError.code {
+            case .notConnectedToInternet:
+                throw APIError.noInternet
+            case .timedOut:
+                throw APIError.timeout
+            default:
+                throw APIError.unknown
+            }
+        } catch {
+            print("Fehler beim Decodieren oder anderen Fehler:", error)
+            print("Antwort als String:", String(data: data, encoding: .utf8) ?? "n/a")
+            throw APIError.decodingError
+        }
+    }
 }
