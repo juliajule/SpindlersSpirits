@@ -113,7 +113,8 @@ struct WhiskyFilterPanel: View {
             )
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(12)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: Color("Shadows").opacity(0.15), radius: 6, x: 0, y: 4)
         .onChange(of: ageRange) {
             viewModel.minAge = Int(ageRange.lowerBound)
             viewModel.maxAge = Int(ageRange.upperBound)
