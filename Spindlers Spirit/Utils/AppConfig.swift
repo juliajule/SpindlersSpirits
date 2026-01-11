@@ -8,6 +8,6 @@
 import Foundation
 
 enum AppConfig {
-    static let baseURL = "http://192.168.1.188:8080"
+    static let baseURL = "http://localhost:8080"
     static let appVersion = "1.0.0"
 }

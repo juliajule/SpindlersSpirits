@@ -29,7 +29,7 @@ struct HomeTabView: View {
                     Label("Suche", systemImage: "magnifyingglass")
                 }
             
-            Text("fav")
+            FavoriteTabView()
                 .tabItem {
                     Label("Favoriten", systemImage: "heart")
                 }
