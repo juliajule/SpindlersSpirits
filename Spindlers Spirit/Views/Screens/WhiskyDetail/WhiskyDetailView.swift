@@ -11,6 +11,7 @@ struct WhiskyDetailView: View {
     
     let whisky: Whisky
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var favoritesManager: FavoritesManager
     
     var body: some View {
         VStack(spacing: 0) {
@@ -73,9 +74,9 @@ struct WhiskyDetailView: View {
                             .fontWeight(.bold)
                         Spacer()
                         Button(action: {
-                            // Favorit-Logik später
+                            favoritesManager.toggleFavorite(whisky)
                         }) {
-                            Image(systemName: "heart")
+                            Image(systemName: favoritesManager.isFavorite(whisky) ? "heart.fill" : "heart")
                                 .foregroundColor(Color("AccentColor"))
                                 .scaleEffect(1.2)
                                 .padding(6)
@@ -166,4 +167,6 @@ struct WhiskyDetailView: View {
 
 #Preview {
     WhiskyDetailView(whisky: MockWhiskyData.mockWhiskys[0])
+        .environmentObject(FavoritesManager())
 }
+

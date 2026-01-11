@@ -11,8 +11,13 @@ struct FavoriteListView: View {
     
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    @EnvironmentObject var favoritesManager: FavoritesManager
     var onSelect: (Whisky) -> Void
 
+    private var favoriteWhiskys: [Whisky] {
+        favoritesManager.favorites(from: viewModel.whiskys)
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             
@@ -31,12 +36,12 @@ struct FavoriteListView: View {
                     Text(error)
                         .foregroundColor(.red)
                         .padding()
-                } else if viewModel.whiskys.isEmpty {
-                    EmptyStateView(imageName: "whisky-def", message: "Keine Whiskys gefunden.")
+                } else if favoriteWhiskys.isEmpty {
+                    EmptyStateView(imageName: "whisky-def", message: "Keine Favoriten vorhanden.")
                 } else {
                     ScrollView {
                         VStack(spacing: 12) {
-                            ForEach(viewModel.whiskys) { whisky in
+                            ForEach(favoriteWhiskys) { whisky in
                                 WhiskyRowView(whisky: whisky)
                                     .onTapGesture {
                                         onSelect(whisky)
@@ -58,4 +63,7 @@ struct FavoriteListView: View {
     let viewModel = WhiskyViewModel()
     let onSelect: (Whisky) -> Void = { _ in }
     FavoriteListView(viewModel: viewModel, onSelect: onSelect)
+        .environmentObject(ViewModeSettings())
+        .environmentObject(FavoritesManager())
 }
+

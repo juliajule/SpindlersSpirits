@@ -11,12 +11,17 @@ struct FavoriteGridView: View {
     
     @ObservedObject var viewModel: WhiskyViewModel
     @EnvironmentObject var viewModeSettings: ViewModeSettings
+    @EnvironmentObject var favoritesManager: FavoritesManager
     var onSelect: (Whisky) -> Void
 
     let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
     ]
+    
+    private var favoriteWhiskys: [Whisky] {
+        favoritesManager.favorites(from: viewModel.whiskys)
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -35,13 +40,13 @@ struct FavoriteGridView: View {
                     Text(error)
                         .foregroundColor(.red)
                         .padding()
-                } else if viewModel.whiskys.isEmpty {
-                    EmptyStateView(imageName: "whisky-def", message: "Keine Whiskys gefunden.")
+                } else if favoriteWhiskys.isEmpty {
+                    EmptyStateView(imageName: "whisky-def", message: "Keine Favoriten vorhanden.")
                 } else {
                     ScrollView {
                         VStack(spacing: 12) {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(viewModel.whiskys) { whisky in
+                                ForEach(favoriteWhiskys) { whisky in
                                     WhiskyCellView(whisky: whisky)
                                         .onTapGesture {
                                             onSelect(whisky)
@@ -64,4 +69,7 @@ struct FavoriteGridView: View {
     let viewModel = WhiskyViewModel()
     let onSelect: (Whisky) -> Void = { _ in }
     FavoriteGridView(viewModel: viewModel, onSelect: onSelect)
+        .environmentObject(ViewModeSettings())
+        .environmentObject(FavoritesManager())
 }
+

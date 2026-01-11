@@ -11,11 +11,14 @@ import SwiftUI
 struct Spindlers_SpiritApp: App {
     
     @StateObject private var viewModeSettings = ViewModeSettings()
+    @StateObject private var favoritesManager = FavoritesManager()
 
     var body: some Scene {
         WindowGroup {
             HomeTabView()
                 .environmentObject(viewModeSettings)
+                .environmentObject(favoritesManager)
         }
     }
 }
+
